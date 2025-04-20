@@ -1,50 +1,36 @@
-import React, { useState } from "react";
-import { Menu, Home, User, Settings, BarChart2 } from "lucide-react";
-import classNames from "classnames";
 
-const menuItems = [
-  { icon: <Home size={20} />, label: "Home" },
-  { icon: <User size={20} />, label: "Users" },
-  { icon: <BarChart2 size={20} />, label: "Reports" },
-  { icon: <Settings size={20} />, label: "Settings" },
-];
+import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import { menuItems } from '../constants'
 
 const Sidebar = () => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const navigate = useNavigate()
+
+  const onSelectPage = (path) => {
+    navigate(path)
+  }
 
   return (
-    <div
-      className={classNames(
-        "h-screen bg-gray-800 text-white transition-all duration-300 shadow-lg",
-        isExpanded ? "w-64" : "w-20"
-      )}
+    <motion.div
+      className="bg-gray-900 h-full w-64 p-3 border-r-2 overflow-y-auto shadow-lg"
+      initial={{ x: -100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 100 }}
     >
-      <div className="flex items-center justify-between p-4 bg-gray-900">
-        <span className="text-lg font-semibold">
-          {isExpanded && "My Panel"}
-        </span>
-        <button
-          className="text-white focus:outline-none"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          <Menu />
-        </button>
-      </div>
-
-      <nav className="mt-4 flex flex-col">
-        {menuItems.map((item, index) => (
-          <a
-            key={index}
-            href="#"
-            className="flex items-center gap-4 px-4 py-3 hover:bg-gray-700 transition-colors"
+      <ul className="space-y-4">
+        {menuItems.map((item, i) => (
+          <li
+            key={i}
+            onClick={() => onSelectPage(item.path)}
+            className="flex items-center gap-4 px-3 py-2 hover:bg-gray-800 rounded-lg cursor-pointer transition-all text-white"
           >
             {item.icon}
-            {isExpanded && <span>{item.label}</span>}
-          </a>
+            <span className="text-sm">{item.label}</span>
+          </li>
         ))}
-      </nav>
-    </div>
-  );
-};
+      </ul>
+    </motion.div>
+  )
+}
 
-export default Sidebar;
+export default Sidebar

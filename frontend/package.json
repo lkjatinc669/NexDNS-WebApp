@@ -1,5 +1,5 @@
 {
-  "name": "dns-server-frontend",
+  "name": "nexdns-webapp-frontend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -12,6 +12,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
     "classnames": "^2.5.1",
+    "dotenv": "^16.5.0",
+    "framer-motion": "^12.7.4",
     "lucide-react": "^0.488.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
