@@ -1,7 +1,28 @@
 @import "tailwindcss";
 
-html, 
-body {
-    @apply bg-gray-900 text-white
+.normal-color {
+  @apply bg-gray-900;
 }
 
+.active-color {
+  @apply bg-gray-700;
+}
+
+.hover-color {
+  @apply bg-gray-800;
+}
+
+html,
+body {
+  @apply bg-gray-900 text-white transition-colors duration-300;
+}
+
+.torch-effect {
+  background: radial-gradient(
+    circle 150px at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.15),
+    rgba(0, 0, 0, 0.95)
+  );
+  mix-blend-mode: screen;
+  transition: background-position 0.05s ease;
+}

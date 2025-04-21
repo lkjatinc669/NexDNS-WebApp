@@ -1,7 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
-import Layout from './Layout'
-import Devices from './pages/Devices'
-import NotFound from "./pages/NotFound";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import Layout from './Layout';
+import Devices from './pages/Devices';
+import DNS from './pages/DNS';
+import Services from './pages/Services';
+import NotFound from './pages/NotFound';
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -9,15 +12,27 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
             {
-                index: true,
+                index: "dashboard",
+                element: <Dashboard />,
+            },
+            {
+                path: "devices",
                 element: <Devices />,
+            },
+            {
+                path: "dns",
+                element: <DNS />,
+            },
+            {
+                path: "services",
+                element: <Services />,
             },
         ],
     },
     {
         path: "*",
-        element: <NotFound />
-    }
+        element: <NotFound />,
+    },
 ]);
 
 export default router;

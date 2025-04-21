@@ -23,7 +23,7 @@ export default function SplashScreen({ onFinish }) {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: progress >= 100 ? 0 : 1 }}
-      transition={{ duration: 1 }}
+      transition={{ ease: 'linear', duration: 1 }}
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white"
     >
       <motion.h1

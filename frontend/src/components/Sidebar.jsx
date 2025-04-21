@@ -1,31 +1,31 @@
-
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { menuItems } from '../constants'
 
 const Sidebar = () => {
-  const navigate = useNavigate()
-
-  const onSelectPage = (path) => {
-    navigate(path)
-  }
-
   return (
     <motion.div
-      className="bg-gray-900 h-full w-64 p-3 border-r-2 overflow-y-auto shadow-lg"
+      className="normal-color h-full md:w-64 w-20 p-2 border-r-2 overflow-y-auto shadow-lg"
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 100 }}
+      transition={{ ease: 'linear', stiffness: 50 }}
     >
-      <ul className="space-y-4">
+      <ul className="space-y-2">
         {menuItems.map((item, i) => (
-          <li
-            key={i}
-            onClick={() => onSelectPage(item.path)}
-            className="flex items-center gap-4 px-3 py-2 hover:bg-gray-800 rounded-lg cursor-pointer transition-all text-white"
-          >
-            {item.icon}
-            <span className="text-sm">{item.label}</span>
+          <li key={i}>
+            <NavLink
+              to={item.path}
+              title={item.label}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2 md:justify-start justify-center rounded-lg transition-all text-white group ${isActive ? 'bg-gray-700 font-semibold' : 'hover:bg-gray-800'
+                }`
+              }
+            >
+              <div className="text-xl">{item.icon}</div>
+              <span className="text-sm hidden md:inline-block transition-opacity duration-300 ease-in-out">
+                {item.label}
+              </span>
+            </NavLink>
           </li>
         ))}
       </ul>

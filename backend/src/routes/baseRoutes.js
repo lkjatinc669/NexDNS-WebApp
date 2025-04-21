@@ -1,0 +1,7 @@
+import express from "express";
+
+const baseRouter = express.Router();
+
+baseRouter.get("/", (req, res) => res.send("Hello Wsorld"));
+
+export default baseRouter;

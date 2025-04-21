@@ -1,35 +1,32 @@
 import { Moon, Server, Sun, UserIcon } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import useDarkMode from "../hooks/useDarkMode";
 
 const TopBar = () => {
   const [isUserPanelVisible, setUserPanelVisible] = useState(false);
-  const [isDarkMode, setDarkMode] = useState(true);
+  const [isDark, setIsDark] = useDarkMode(); // Custom hook manages dark mode
 
   const userPanelRef = useRef(null);
 
   const resultData = {
     type: "administrator",
-    name: "bunny"
+    name: "bunny",
   };
 
   const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
   const username = `${capitalize(resultData.type)} : ${capitalize(resultData.name)}`;
 
+  // Close user panel when clicking outside
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        userPanelRef.current &&
-        !userPanelRef.current.contains(event.target)
-      ) {
+    const handleClickOutside = (event) => {
+      if (userPanelRef.current && !userPanelRef.current.contains(event.target)) {
         setUserPanelVisible(false);
       }
-    }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -37,41 +34,43 @@ const TopBar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ stiffness: 100 }}
-      className="w-screen flex items-center justify-between bg-gray-900 h-16 p-3 border-b-2 relative"
+      className="w-screen flex items-center justify-between bg-white dark:bg-gray-900 text-black dark:text-white h-16 px-4 border-b relative"
     >
-      <div className="flex items-center gap-1 px-3 py-2 hover:bg-gray-800 rounded-lg cursor-pointer">
+      {/* Logo */}
+      <div className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer">
         <Server />
-        <h1 className="text-3xl font-bold px-2">NexDNS</h1>
+        <h1 className="text-3xl font-bold">NexDNS</h1>
       </div>
 
+      {/* Controls */}
       <div className="flex items-center gap-2 relative">
+        {/* Dark Mode Toggle */}
         <button
-          onClick={() => setDarkMode(!isDarkMode)}
-          className="flex items-center gap-1 px-3 py-2 hover:bg-gray-800 rounded-lg cursor-pointer"
+          onClick={() => setIsDark(!isDark)}
+          className="flex items-center gap-1 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
         >
-          {isDarkMode ? <Sun /> : <Moon />}
+          {isDark ? <Sun /> : <Moon />}
         </button>
 
+        {/* User Button */}
         <button
           onClick={() => setUserPanelVisible(prev => !prev)}
-          className={`flex items-center gap-1 px-3 py-2 hover:bg-gray-800 ${isUserPanelVisible ? "bg-gray-800" : "bg-gray-900"} rounded-lg cursor-pointer`}
+          className={`flex items-center gap-1 px-3 py-2 rounded-lg transition ${isUserPanelVisible ? "bg-gray-100 dark:bg-gray-800" : "bg-gray-200 dark:bg-gray-900"
+            } hover:bg-gray-100 dark:hover:bg-gray-800`}
         >
           <UserIcon />
           {username}
         </button>
 
+        {/* User Panel Dropdown */}
         {isUserPanelVisible && (
           <div
             ref={userPanelRef}
-            className="absolute top-16 right-0 bg-gray-800 text-white rounded-xl shadow-lg border p-6 w-72 space-y-4 z-50"
+            className="absolute top-16 right-0 bg-white dark:bg-gray-800 text-black dark:text-white rounded-xl shadow-lg border p-6 w-72 space-y-4 z-50"
           >
-            <div className="text-md font-medium pb-2">
-              Username: {resultData.name}
-            </div>
-            <div className="text-md font-medium pb-2">
-              Server Status: 🟢 Online
-            </div>
-            <button className="bg-red-600 text-white w-full py-2 rounded-lg hover:bg-red-700">
+            <div className="text-md font-medium pb-2">Username: {resultData.name}</div>
+            <div className="text-md font-medium pb-2">Server Status: 🟢 Online</div>
+            <button className="bg-red-600 text-white w-full py-2 rounded-lg hover:bg-red-700 transition">
               Logout
             </button>
           </div>
@@ -82,6 +81,7 @@ const TopBar = () => {
 };
 
 export default TopBar;
+
 
 
 
@@ -102,7 +102,7 @@ export default TopBar;
 //   }, [darkMode])
 
 //   return (
-//     <div className="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-900 shadow-md flex items-center justify-between px-6 z-40">
+//     <div className="fixed top-0 left-0 right-0 h-16 bg-white dark:normal-color shadow-md flex items-center justify-between px-6 z-40">
 //       <h2 className="text-3xl font-extrabold text-blue-500"><span className='text-white'>Nex</span>DNS</h2>
 
 //       <div className="flex items-center gap-4">

@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import Sidebar from './components/Sidebar'
 import TopBar from './components/TopBar';
+import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
     return (
@@ -9,7 +10,8 @@ const Layout = () => {
             <TopBar />
             <div className="flex flex-1">
                 <Sidebar />
-                <div className="flex-1 p-4 bg-gray-900">
+                <div className="flex-1 p-4 normal-color">
+                    <Outlet />
                     {/* Content goes here */}
                 </div>
             </div>

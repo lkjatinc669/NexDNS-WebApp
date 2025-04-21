@@ -1,9 +1,8 @@
-// src/components/Sidebar.jsx
-import { Home, Server, Settings, Info } from "lucide-react";
+import { LayoutDashboard, HardDrive, ShieldCheck, Globe } from "lucide-react";
+
 export const menuItems = [
-  { icon: <Home />, label: "Dashboard", path: "/dashboard" },
-  { icon: <Server />, label: "Servers", path: "/dashboard/servers" },
-  { icon: <Settings />, label: "Settings", path: "/dashboard/settings" },
-  { icon: <Info />, label: "About", path: "/dashboard/about" },
-  // ...repeat as needed
+  { icon: <LayoutDashboard />, label: "Dashboard", path: "/" },
+  { icon: <HardDrive />, label: "Devices", path: "/devices" },
+  { icon: <ShieldCheck />, label: "Services", path: "/services" },
+  { icon: <Globe />, label: "DNS", path: "/dns" },
 ];
