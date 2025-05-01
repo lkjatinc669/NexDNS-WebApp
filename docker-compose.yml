@@ -2,15 +2,15 @@ version: "3.8"
 
 services:
   frontend:
-    build: ./frontend
-    container_name: nexdns-frontend
+    build:
+      context: ./frontend
     ports:
       - "3000:80"
     restart: always
 
   backend:
-    build: ./backend
-    container_name: nexdns-backend
+    build:
+      context: ./backend
     ports:
-      - "8080:8080"
+      - "5000:5000"
     restart: always
