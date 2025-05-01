@@ -2,22 +2,13 @@
   "name": "nexdns-webapp-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Frontend for NexDNS WebApp — local DNS and device manager UI",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "vite",
-    "react",
-    "tailwindcss",
-    "dns",
-    "webapp",
-    "nexdns"
-  ],
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.8.4",
@@ -26,7 +17,8 @@
     "framer-motion": "^12.7.4",
     "lucide-react": "^0.488.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
@@ -35,7 +27,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.22.0",
-    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
