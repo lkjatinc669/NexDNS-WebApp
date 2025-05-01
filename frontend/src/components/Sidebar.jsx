@@ -5,7 +5,7 @@ import { menuItems } from '../constants'
 const Sidebar = () => {
   return (
     <motion.div
-      className="normal-color h-full md:w-64 w-20 p-2 border-r-2 overflow-y-auto shadow-lg"
+      className="normal-color h-full md:w-64 w-16 p-2 border-r-2 overflow-y-auto shadow-lg"
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ ease: 'linear', stiffness: 50 }}

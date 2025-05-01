@@ -12,10 +12,6 @@ const getLocalIP = () => {
   }
 };
 
-const localIP = getLocalIP();
-const subnet = localIP.split(".").slice(0, 3).join(".") + ".";
-console.log(`Scanning devices on subnet: ${subnet}0/24`);
-
 const probe = (host) =>
   new Promise((resolve) => {
     ping.sys.probe(host, function (isAlive) {
@@ -24,6 +20,8 @@ const probe = (host) =>
   });
 
 const scanNetwork = async () => {
+  const localIP = getLocalIP();
+  const subnet = localIP.split(".").slice(0, 3).join(".") + ".";
   const hosts = Array.from({ length: 254 }, (_, i) => `${subnet}${i + 1}`);
 
   const probes = hosts.map((host) => probe(host));
@@ -34,10 +32,11 @@ const scanNetwork = async () => {
     .map((res) => res.host);
 
   console.log("\nActive Hosts:", activeHosts);
-  activeHosts.forEach((host) => console.log(`- ${host}`));
+  return activeHosts;
+  // activeHosts.forEach((host) => console.log(`- ${host}`));
 };
 
-scanNetwork();
+export default scanNetwork;
 
 // const pingHost = (ip) => {
 //   return new Promise((resolve) => {

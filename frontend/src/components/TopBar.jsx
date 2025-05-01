@@ -29,12 +29,20 @@ const TopBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  function toggleDark() {
+    document.documentElement.classList.toggle(
+      "dark",
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+    );
+  }
+
   return (
     <motion.div
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ stiffness: 100 }}
-      className="w-screen flex items-center justify-between bg-white dark:bg-gray-900 text-black dark:text-white h-16 px-4 border-b relative"
+      className="w-screen flex items-center justify-between bg-white dark:bg-gray-900 text-black dark:text-white h-16 px-2 border-b relative"
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer">

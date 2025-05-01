@@ -1,9 +1,13 @@
 import React from 'react'
+import axios from 'axios';
 
 const Devices = () => {
+
+    axios.post("http://localhost:6990/net-utils/")
     return (
-        <div>Devices</div>
+        <div />
     )
 }
 
-export default Devices
+export default Devices;
+

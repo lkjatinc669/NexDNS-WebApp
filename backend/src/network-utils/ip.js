@@ -2,6 +2,8 @@ import os from "os";
 
 // console.log(os.platform() + os.arch());
 
+console.log(os.networkInterfaces());
+
 console.log(os.freemem() / 1024 / 1024 / 1024);
 
 // const networkInterfaces = os.networkInterfaces();

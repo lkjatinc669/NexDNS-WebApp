@@ -1,4 +1,3 @@
-// src/hooks/useDarkMode.js
 import { useEffect, useState } from "react";
 
 export default function useDarkMode() {
@@ -7,8 +6,8 @@ export default function useDarkMode() {
     if (savedTheme) return savedTheme === "dark";
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
-
   useEffect(() => {
+    console.log("Hello");
     const root = document.documentElement;
     if (isDark) {
       root.classList.add("dark");
