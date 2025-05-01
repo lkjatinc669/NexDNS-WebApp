@@ -1,16 +1,24 @@
 {
   "name": "nexdns-webapp-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Backend for NexDNS WebApp - a local DNS and device service manager",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start-dns-server-dev": "nodemon src/index.js",
-    "start-dns-server": "node src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "lint": "eslint .",
+    "test": "echo \"No tests specified\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "dns",
+    "local-network",
+    "express",
+    "backend",
+    "nexdns"
+  ],
+  "author": "Jatin Gohil",
+  "license": "MIT",
   "dependencies": {
     "better-sqlite3": "^11.9.1",
     "cors": "^2.8.5",
@@ -18,10 +26,10 @@
     "express": "^5.1.0",
     "express-api-doc": "^0.0.12",
     "nedb": "^1.8.0",
-    "net": "^1.0.2",
     "ping": "^0.4.4"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "eslint": "^8.58.0"
   }
 }
