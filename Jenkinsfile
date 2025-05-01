@@ -6,17 +6,19 @@ pipeline {
   }
 
   stages {
-    stage('Clone Repo') {
+    stage('📥 Clone Repo') {
       steps {
         checkout scm
       }
     }
 
-    stage('Build and Deploy') {
+    stage('🔧 Build & Deploy with Docker') {
       steps {
-        sh 'docker-compose down'
-        sh 'docker-compose build'
-        sh 'docker-compose up -d'
+        script {
+          sh 'docker-compose down'
+          sh 'docker-compose build'
+          sh 'docker-compose up -d'
+        }
       }
     }
   }
