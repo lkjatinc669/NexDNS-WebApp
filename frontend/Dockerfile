@@ -1,43 +1,24 @@
-# Use Alpine as base image
-FROM alpine:3.21
+FROM node:20.18.0-slim
 
-# Set Node version environment variable
-ENV NODE_VERSION 22.15.0
+# Set environment
+ENV NODE_ENV=production
+ENV NODE_OPTIONS=--max-old-space-size=2048
 
-# Install dependencies and build tools
-RUN addgroup -g 1000 node \
-    && adduser -u 1000 -G node -s /bin/sh -D node \
-    && apk add --no-cache \
-    libstdc++ \
-    && apk add --no-cache --virtual .build-deps \
-    curl \
-    && ARCH=x64 OPENSSL_ARCH='linux*' && alpineArch="$(apk --print-arch)" \
-    && case "${alpineArch##*-}" in \
-    x86_64) ARCH='x64' CHECKSUM="60198941802e88659bb3b30b9a45b694b1c695cf33c1ef58863f854996d11d5d" OPENSSL_ARCH=linux-x86_64;; \
-    x86) OPENSSL_ARCH=linux-elf;; \
-    aarch64) OPENSSL_ARCH=linux-aarch64;; \
-    arm*) OPENSSL_ARCH=linux-armv4;; \
-    ppc64le) OPENSSL_ARCH=linux-ppc64le;; \
-    s390x) OPENSSL_ARCH=linux-s390x;; \
-    *) ;; \
-    esac \
-    && curl -fsSLO --compressed "https://unofficial-builds.nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
-    && echo "$CHECKSUM  node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" | sha256sum -c - \
-    && tar -xJf "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-    && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-    && apk del .build-deps
-
-# Set working directory
 WORKDIR /app
 
-# Copy project files
+# Copy and install only dependencies first (better caching)
+COPY package*.json ./
+RUN npm ci --legacy-peer-deps
+
+# Copy the rest of the code
 COPY . .
 
-# Install dependencies and build the React app
-RUN npm install && npm run build
+# Build your React/Vite app
+RUN npm run build
 
-# Expose port for React app
-EXPOSE 3000
+# Serve with nginx
+FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
 
-# Start the app (can be changed to serve via Nginx in production)
-CMD ["npm", "start"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
