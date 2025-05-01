@@ -1,5 +1,7 @@
 # Build step
-FROM node:18-alpine AS builder
+FROM alpine:3.21 AS builder
+
+ENV NODE_VERSION=22.15.0
 WORKDIR /app
 COPY . .
 RUN npm install && npm run build
