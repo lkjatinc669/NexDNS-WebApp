@@ -1,10 +1,6 @@
 pipeline {
   agent any
 
-  tools {
-    nodejs '18'
-  }
-
   environment {
     DOCKER_BUILDKIT = '1'
   }
